@@ -13,10 +13,13 @@ Call the script with just one parameter: the path to the configuration file.
 ```
 ./servermonitor.py config.ini
 ```
-You can set up a cron job and call the script periodically for continuous monitorization. For instance, if you want to check your servers every 5 minutes, add something like this to your `crontab`:
+
+#### Continuous monitoring
+When running on Linux, you can set up a cron job and call the script periodically for continuous monitoring. For instance, if you want to check your servers every 5 minutes, add something like this to your `crontab`:
 ```
 */5 * * * * root /path/to/servermonitor.py /path/to/config.ini
 ```
+When running on Windows, set up a task in [Task Scheduler](https://en.wikipedia.org/wiki/Windows_Task_Scheduler). On MacOs, use [launchd](https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html).
 
 ---
 
@@ -24,7 +27,9 @@ You can set up a cron job and call the script periodically for continuous monito
 The configuration file is an INI file:
 * A mandatory `[servermonitor]` section is required, with main configuration data.
 * Add new sections for every service you want to check. Name of the service definition sections can be whatever you want, except `[servermonitor]`.
-* A basic sample of a configuration file is included in the project (`sample_config.ini`)
+* A basic sample of a configuration file is included in the project (`sample_config.ini`).
+* The script stores status data in the configuration file, so the user who runs the script must have read AND write access to the configuration file.
+* If you include credentials data in the configuration file (for testing FTP servers), make sure that read permissions are properly configured so only authorized users can read its contents.
 
 #### [servermonitor] section
 **outputpath** = _Optional_ Path to output HTML report.  
